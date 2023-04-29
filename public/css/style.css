@@ -17,6 +17,17 @@
     outline: none;
     box-sizing: border-box;
 }
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--white);
+    font-family: 'Mabrope', sans-serif;
+    width: 100%;
+}
+.colored-body{
+    background: var(--orange);
+}
+
 @media screen and (min-width: 1024px) {
     html {
         font-size: 14px;
@@ -181,9 +192,6 @@
         opacity: 0;
     }
 } 
-.body{
-    background-color: var(--white);
-}
 .main-page-container{
     display: flex;
     flex-direction: column;
@@ -192,8 +200,6 @@
     gap: 5rem;
     height: 98vh;
     width: 100%;
-    background: var(--orange);
-
 }
 #greeting-container{
     visibility: hidden;

@@ -105,6 +105,8 @@ window.onload = function() {
                     modalHeading.innerHTML = `Oops...`;
                     modalText.innerHTML = `Please introduce yourself to continue`;
                 } else {
+                    sessionStorage.setItem('userName', userName.value);
+
                     greeting.classList.add('top-disappearance');
                     greetingContainer.classList.add('bottom-disappearance');
                     observer.observe(greeting);
@@ -112,8 +114,28 @@ window.onload = function() {
                     setTimeout(function(){
                         greeting.remove();
                         greetingContainer.remove();
+                        greeting.classList.remove('top-disappearance');
+                        greeting.classList.remove('smoothly-appearing');
+                        greeting.innerHTML = `Welcome, ${sessionStorage.userName}!`;
+                        contentContainer.prepend(greeting);
+                        setTimeout(function(){
+                            greeting.classList.remove('smoothly-appearing');
+                            greeting.classList.add('disappearing');
+                            observer.observe(greeting);
+                        }, 2000)
+                        setTimeout(function(){
+                            greeting.classList.remove('disappearing');
+                            greeting.innerHTML = `Let's set up yor planner`;
+                            greeting.classList.add('appearing');
+                            observer.observe(greeting);
+                        }, 3000)
+                        setTimeout(function(){
+                            greeting.classList.remove('appearing');
+                            greeting.classList.add('disappearing');
+                            observer.observe(greeting);
+                        }, 5000)
+                        greeting.remove();
                     }, 1000)
-                    sessionStorage.setItem('userName', userName.value);
                     console.log(sessionStorage);
                 }
             }
