@@ -40,55 +40,56 @@ window.onload = function() {
     for (let element of smoothlyAppearedElements) { observer.observe(element); }
 
     if (location.pathname.includes('index') || location.pathname.split('').pop() == '/') { // главная страница 
-        let contentContainer = document.getElementById('content-container');
+        let startContainer = document.getElementById('start-container'),
+            mainContainer = document.getElementById('main-container');
 
         sessionStorage.clear();
 
         if (!localStorage.userName || localStorage.userName == undefined) {
             console.log('no user');
-            let greetingContainer = document.getElementById('greeting-container'),
-                greeting = document.createElement('p');
+            let  greetingContainer = document.getElementById('greeting-container');
+            // greetingContainer.innerHTML = `
+            // <div class="input-data">
+            //     <input type="'text" class="medium-text" name="user-name" id="user-name" required />
+            //     <div class="underline"></div>
+            //     <label class="medium-text" for="user-name">My name is...</label>
+            // </div>
+            // <button class="button medium-text" id="next">Next</button>`;
+            let greeting = document.createElement('p');
             greeting.className = 'heading white-text smoothly-appearing';
             greeting.innerHTML = `Hi, stranger!`;
-            contentContainer.prepend(greeting);
+            startContainer.prepend(greeting);
             observer.observe(greeting);
-            setTimeout(function(){
-                greeting.classList.remove('smoothly-appearing');
-                greeting.classList.add('disappearing');
-                observer.observe(greeting);
-            }, 2000)
-            setTimeout(function(){
-                greeting.classList.remove('disappearing');
-                greeting.innerHTML = `I'm Mark - your personal task manager`;
-                greeting.classList.add('appearing');
-                observer.observe(greeting);
-            }, 3000)
-            setTimeout(function(){
-                greeting.classList.remove('appearing');
-                greeting.classList.add('disappearing');
-                observer.observe(greeting);
-            }, 5000)
-            setTimeout(function(){
-                greeting.classList.remove('disappearing');
-                greeting.innerHTML = `It seems like we haven't met yet`;
-                greeting.classList.add('appearing');
-                observer.observe(greeting);
-            }, 6000)
-            setTimeout(function(){
-                greeting.classList.remove('appearing');
-                greeting.classList.add('disappearing');
-                observer.observe(greeting);
-            }, 8000)
-            setTimeout(function(){
-                greeting.classList.remove('disappearing');
-                greeting.innerHTML = `Let's fix that:`;
-                greeting.classList.add('appearing');
-                observer.observe(greeting);
-            }, 9000)
+
+            function changeElem(...args){ // elem, oldclass, newclass, newtext
+                args[[0]].classList.remove(args[[1]]);
+                if(args[[3]]){
+                    args[[0]].innerHTML = (args[[3]]);
+                }
+                args[[0]].classList.add(args[[2]]);
+            }
 
             setTimeout(function(){
-                observer.observe(greetingContainer);
-            }, 10000)
+                changeElem(greeting, 'smoothly-appearing', 'disappearing');
+                setTimeout(function(){
+                    changeElem(greeting, 'disappearing', 'appearing', `I'm Mark - your personal task manager`);
+                }, 1000)
+                setTimeout(function(){
+                    changeElem(greeting, 'appearing', 'disappearing');
+                }, 3000)
+                setTimeout(function(){
+                    changeElem(greeting, 'disappearing', 'appearing', `It seems like we haven't met yet`);
+                }, 4000)
+                setTimeout(function(){
+                    changeElem(greeting, 'appearing', 'disappearing');
+                }, 6000)
+                setTimeout(function(){
+                    changeElem(greeting, 'disappearing', 'appearing', `Let's fix that:`);
+                }, 7000)
+                setTimeout(function(){
+                    observer.observe(greetingContainer);
+                }, 8000)
+            }, 2000)
 
             let nextButton = document.getElementById('next'),
                 userName = document.getElementById('user-name');
@@ -109,37 +110,37 @@ window.onload = function() {
 
                     greeting.classList.add('top-disappearance');
                     greetingContainer.classList.add('bottom-disappearance');
-                    observer.observe(greeting);
-                    observer.observe(greetingContainer);
+                    
                     setTimeout(function(){
                         greeting.remove();
                         greetingContainer.remove();
-                        greeting.classList.remove('top-disappearance');
-                        greeting.classList.remove('smoothly-appearing');
-                        greeting.innerHTML = `Welcome, ${sessionStorage.userName}!`;
-                        contentContainer.prepend(greeting);
+                        changeElem(greeting, 'top-disappearance', 'smoothly-appearing', `Welcome, ${sessionStorage.userName}!`);
+                        startContainer.prepend(greeting);
+
                         setTimeout(function(){
-                            greeting.classList.remove('smoothly-appearing');
-                            greeting.classList.add('disappearing');
-                            observer.observe(greeting);
-                        }, 2000)
+                            changeElem(greeting, 'smoothly-appearing', 'disappearing');
+                        }, 1000)
                         setTimeout(function(){
-                            greeting.classList.remove('disappearing');
-                            greeting.innerHTML = `Let's set up yor planner`;
-                            greeting.classList.add('appearing');
-                            observer.observe(greeting);
-                        }, 3000)
+                            changeElem(greeting, 'disappearing', 'appearing', `Let's set up your planner`);
+                        }, 2500)
                         setTimeout(function(){
-                            greeting.classList.remove('appearing');
-                            greeting.classList.add('disappearing');
-                            observer.observe(greeting);
+                            changeElem(greeting, 'appearing', 'disappearing');
+                            setTimeout(function(){ 
+                                greeting.remove();
+                                mainContainer.classList.add('appeared');
+                                console.log(startContainer);
+                                startContainer.classList.add('appeared');
+                                setTimeout(function(){
+                                    startContainer.remove(); 
+                                }, 1500);
+                             }, 900);
                         }, 5000)
-                        greeting.remove();
-                    }, 1000)
+                        
+                    }, 900)
                     console.log(sessionStorage);
+
                 }
             }
-
         } else {
 
         }

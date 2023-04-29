@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Raleway:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 :root{
     --white: #fefefe;
-    --black: #282828;
+    --black: #333333;
     --gray: #ebebeb;
     --dark-gray: #999999;
     --orange-2: #F48116;
@@ -20,7 +20,7 @@
 body {
     margin: 0;
     padding: 0;
-    background: var(--white);
+    background: rgba(235, 135, 56, 0.05);
     font-family: 'Mabrope', sans-serif;
     width: 100%;
 }
@@ -58,7 +58,7 @@ body {
 .button{
     padding: .5rem 6rem;
     background-color: var(--orange);
-    border: 0.2rem solid var(--black);
+    border: 0.15 rem solid var(--black);
     transition: all .3s ease-in-out;
 }
 .button:hover{
@@ -135,6 +135,12 @@ body {
     animation-iteration-count: 1;
     transition: all 1s ease-in-out;
 }
+.total-top-disappearance.appeared{
+    animation-name: total-top-disappearance;
+    animation-duration: 1.5s;
+    animation-iteration-count: 1;
+    transition: all 1s ease-in-out;
+}
 @keyframes bottom-appearance {
     0% {
         transform: translateY(20%);
@@ -172,6 +178,14 @@ body {
         opacity: 0;
     }
 }
+@keyframes total-top-disappearance {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+} 
 @keyframes top-disappearance {
     0% {
         transform: translateY(0%);
@@ -192,14 +206,21 @@ body {
         opacity: 0;
     }
 } 
-.main-page-container{
+.main-page{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#start-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 5rem;
-    height: 98vh;
     width: 100%;
+    background: var(--orange);
+    height: 100vh;
 }
 #greeting-container{
     visibility: hidden;
@@ -207,8 +228,17 @@ body {
 #greeting-container.appeared{
     visibility: visible;
 }
+#main-container{
+    background: rgba(235, 135, 56, 0.05);
+    width: 100%;
+    visibility: hidden;
+}
+#main-container.appeared{
+    min-height: 100vh;
+    visibility: visible;
+}
 .box{
-    background-color: var(--white);
+    background: var(--white);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -220,6 +250,7 @@ body {
     position: relative;
     height: 2.86rem;
     width: 18rem;
+    background: transparent;
 }
 
 .input-data input {

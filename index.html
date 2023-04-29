@@ -11,23 +11,26 @@
 		<link rel="manifest" href="/site.webmanifest" />
 		<title>Mark - your task manager</title>
 	</head>
-	<body class="colored-body">
-		<div class="main-page-container" id="content-container">
-			<div class="modal" id="modal">
-				<div class="box modal-content">
-					<p id="modal-heading" class="subheading"></p>
-					<p id="modal-text" class="meduim-text"></p>
-					<button class="button medium-text" id="close-modal-button">Ok</button>
+	<body>
+		<div class="main-page">
+			<div id="start-container" class="total-top-disappearance">
+				<div class="modal" id="modal">
+					<div class="box modal-content">
+						<p id="modal-heading" class="subheading"></p>
+						<p id="modal-text" class="meduim-text"></p>
+						<button class="button medium-text" id="close-modal-button">Ok</button>
+					</div>
+				</div>
+				<div class="box greeting-box bottom-appearance" id="greeting-container">
+					<div class="input-data">
+						<input type="'text" class="medium-text" name="user-name" id="user-name" required />
+						<div class="underline"></div>
+						<label class="medium-text" for="user-name">My name is...</label>
+					</div>
+					<button class="button medium-text" id="next">Next</button>
 				</div>
 			</div>
-			<div class="box greeting-box bottom-appearance" id="greeting-container">
-				<div class="input-data">
-					<input type="'text" class="medium-text" name="user-name" id="user-name" required />
-					<div class="underline"></div>
-					<label class="medium-text" for="user-name">My name is...</label>
-				</div>
-				<button class="button medium-text" id="next">Next</button>
-			</div>
+			<div id="main-container"></div>
 		</div>
 	</body>
 	<script type="text/javascript" src="script.js"></script>
