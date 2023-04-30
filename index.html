@@ -1,69 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./public/css/style.css" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-		<link rel="manifest" href="/site.webmanifest" />
-		<title>Mark - your task manager</title>
-	</head>
-	<body>
-		<div class="main-page-container">
-			<div id="start-container" class="total-top-disappearance">
-				<div class="modal" id="modal">
-					<div class="box modal-content">
-						<p id="modal-heading" class="subheading"></p>
-						<p id="modal-text" class="meduim-text"></p>
-						<button class="button medium-text" id="close-modal-button">Ok</button>
-					</div>
-				</div>
-				<div class="box greeting-box" id="greeting-container">
-					<div class="input-data">
-						<input type="'text" class="medium-text" name="user-name" id="user-name" required />
-						<div class="underline"></div>
-						<label class="medium-text" for="user-name">My name is...</label>
-					</div>
-					<button class="button medium-text" id="next">Next</button>
-				</div>
-			</div>
-			<div id="main-container">
-				<div class="month">
-					<p class="number-text" id="month-name"></p>
-				</div>
-				<div class="calendar-box">
-					<div class="calendar-subbox day top-appearance" id="day">
-						<p class="medium-text gray-text" id="weekday"></p>
-						<p class="number-text" id="date"></p>
-					</div>
-					<div class="calendar-subbox planner smoothly-appearing" id="planner">
-						<div class="input-task">
-							<input
-								type="text"
-								class="medium-text task-input"
-								id="task"
-								placeholder="Enter the task..." />
-							<button id="add"><img src="./images/add.svg" class="icon" /></button>
-							<!-- <p class="medium-text">+</p> -->
-						</div>
-						<div class="task-list">
-							<ul class="lists" id="tasks"></ul>
-						</div>
-					</div>
-					<div class="calendar-subbox more bottom-appearance" id="more">
-						<div class="statistics">
-							<p class="medium-text gray-text">You completed</p>
-							<p class="number-text">17%</p>
-							<p class="medium-text gray-text">of your tasks</p>
-						</div>
-						<button class="button medium-text" id="pomodoro">Pomodoro</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
-	<script type="text/javascript" src="script.js"></script>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./public/css/style.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Mark - your task manager</title>
+</head>
+
+<body>
+    <div class="main-page-container">
+        <div id="start-container" class="total-top-disappearance">
+            <div class="modal" id="modal">
+                <div class="box modal-content">
+                    <p id="modal-heading" class="subheading"></p>
+                    <p id="modal-text" class="meduim-text"></p>
+                    <button class="button medium-text" id="close-modal-button">Ok</button>
+                </div>
+            </div>
+            <div class="box greeting-box" id="greeting-container">
+                <div class="input-data">
+                    <input type="'text" class="medium-text" name="user-name" id="user-name" required />
+                    <div class="underline"></div>
+                    <label class="medium-text" for="user-name">My name is...</label>
+                </div>
+                <button class="button medium-text" id="next">Next</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="script.js"></script>
+
 </html>
