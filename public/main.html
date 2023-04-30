@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./public/css/style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -16,15 +16,24 @@
 <body>
     <div class="main-page-container">
         <div class="modal" id="modal">
-            <div class="box modal-content">
-                <p id="modal-heading" class="subheading"></p>
-                <p id="modal-text" class="meduim-text"></p>
-                <button class="button medium-text" id="close-modal-button">Ok</button>
+            <div class="box modal-container">
+                <span id="close-modal-button"></span>
+                <div class="modal-content">
+                    <p id="modal-heading" class="heading black-text">Pomodoro</p>
+                    <p id="modal-text" class="subheading gray-text"></p>
+                    <div class="timer">
+                        <div class="number-text" id="timer-minutes"></div>
+                        <div class="number-text" id="divider">:</div>
+                        <div class="number-text" id="timer-seconds"></div>
+                    </div>
+                    <button class="button medium-text" id="start">Start</button>
+                </div>
             </div>
         </div>
         <div class="header">
-            <a class="small-text gray-text" id="settings">Settings</a>
-            <a class="small-text" id="profile">Profile</a>
+            <a class="small-text" id="settings-link" href="./settings.html">Settings</a>
+            <a class="subheading" id="mark-link" href="./main.html"><strong>Mark</strong></a>
+            <a class="small-text" id="profile-link" href="./profile.html">Profile</a>
         </div>
         <div id="main-container">
             <div class="month">
@@ -38,7 +47,7 @@
                 <div class="calendar-subbox planner smoothly-appearing" id="planner">
                     <div class="input-task">
                         <input type="text" class="medium-text task-input" id="task" placeholder="Enter the task..." />
-                        <button id="add"><img src="./images/add.svg" class="icon" /></button>
+                        <button id="add"><div class="icon" ></div></button>
 
                     </div>
                     <div class="task-list">
@@ -51,12 +60,15 @@
                         <p class="number-text" id="completed-percent"></p>
                         <p class="medium-text gray-text">of your tasks</p>
                     </div>
-                    <button class="button medium-text" id="pomodoro">Pomodoro</button>
+                    <button class="button medium-text" id="pomodoro" data-trigger>Pomodoro</button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="footer">
+        <a class="small-text gray-text" href="https://github.com/perpetuumm0bi1e">© perpetuumm0bi1e<br />2023</a>
+    </div>
 </body>
-<script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="../script.js"></script>
 
 </html>

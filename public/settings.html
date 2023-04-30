@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>Mark - your task manager</title>
+</head>
+
+<body>
+    <div class="main-page-container">
+        <div class="modal" id="modal">
+            <div class="box modal-content">
+                <p id="modal-heading" class="subheading"></p>
+                <p id="modal-text" class="meduim-text"></p>
+                <button class="button medium-text" id="close-modal-button">Ok</button>
+            </div>
+        </div>
+        <div class="header">
+            <a class="small-text gray-text" id="settings-link" href="./settings.html">Settings</a>
+            <a class="small-text gray-text" id="mark-link" href="./main.html"><strong>Mark</strong></a>
+            <a class="small-text gray-text" id="profile-link" href="./profile.html">Profile</a>
+        </div>
+        <div id="settings-container">
+            <div>
+                <p class="smoothly-appearing heading">Appearance</p>
+            </div>
+            <div class="appearance-subbox">
+                <p class="medium-text gray-text">&#171;Clockwork orange&#187;</p>
+                <div class="color-boxes">
+                    <div class="color-box bottom-appearance" id="clockwork-orange-1"></div>
+                    <div class="color-box bottom-appearance" id="clockwork-orange-2"></div>
+                </div>
+                <button class="button medium-text select-color-button" id="orange,black" value="rgba(235, 135, 56, 0.05)">Select</button>
+            </div>
+            <div class="appearance-subbox">
+                <p class="medium-text gray-text">Golden retriever</p>
+                <div class="color-boxes">
+                    <div class="color-box bottom-appearance" id="golden-retriever-1"></div>
+                    <div class="color-box bottom-appearance" id="golden-retriever-2"></div>
+                </div>
+                <button class="button medium-text select-color-button" id="golden,black" value="rgba(236, 226, 69, 0.05)">Select</button>
+            </div>
+            <div class="appearance-subbox">
+                <p class="medium-text gray-text">Match</p>
+                <div class="color-boxes">
+                    <div class="color-box bottom-appearance" id="matcha-1"></div>
+                    <div class="color-box bottom-appearance" id="matcha-2"></div>
+                </div>
+                <button class="button medium-text select-color-button" id="matcha,black" value="rgba(180, 230, 73, 0.05)">Select</button>
+            </div>
+            <div class="appearance-subbox">
+                <p class="medium-text gray-text">Red is the new black</p>
+                <div class="color-boxes">
+                    <div class="color-box bottom-appearance" id="red-1"></div>
+                    <div class="color-box bottom-appearance" id="red-2"></div>
+                </div>
+                <button class="button medium-text select-color-button" id="red,white" value="rgba(230, 48, 1, 0.05)">Select</button>
+            </div>
+            <div class="appearance-subbox">
+                <p class="medium-text gray-text">Juicy raspberry</p>
+                <div class="color-boxes">
+                    <div class="color-box bottom-appearance" id="raspberry-1"></div>
+                    <div class="color-box bottom-appearance" id="raspberry-2"></div>
+                </div>
+                <button class="button medium-text select-color-button" id="raspberry,white" value="rgba(219, 25, 45, 0.05)">Select</button>
+            </div>
+            <div class="appearance-subbox">
+                <p class="medium-text gray-text">Lavender</p>
+                <div class="color-boxes">
+                    <div class="color-box bottom-appearance" id="lavender-1"></div>
+                    <div class="color-box bottom-appearance" id="lavender-2"></div>
+                </div>
+                <button class="button medium-text select-color-button" id="lavender,black" value="rgba(150, 103, 197, 0.05)">Select</button>
+            </div>
+            <div class="appearance-subbox">
+                <p class="medium-text gray-text">Deep ocean</p>
+                <div class="color-boxes">
+                    <div class="color-box bottom-appearance" id="ocean-1"></div>
+                    <div class="color-box bottom-appearance" id="ocean-2"></div>
+                </div>
+                <button class="button medium-text select-color-button" id="deep-ocean,white" value="rgba(0, 40, 206, 0.05)">Select</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <a class="small-text gray-text" href="https://github.com/perpetuumm0bi1e">© perpetuumm0bi1e<br />2023</a>
+    </div>
+</body>
+<script type="text/javascript" src="../script.js"></script>
+
+</html>

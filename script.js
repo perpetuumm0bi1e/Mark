@@ -34,6 +34,36 @@ window.onload = function() {
         });
     }
 
+    function setApprearance() {
+        let style = document.createElement('style');
+        style.innerHTML = `
+        body{
+            background: ${localStorage.appearanceValue};
+        }
+        .button {
+            background-color: var(--${localStorage.appearanceId});
+            color: var(--${localStorage.appearanceTheme});
+            }
+        .button:hover {
+            box-shadow: .3rem .3rem var(--${localStorage.appearanceId});
+        }
+        #start-container {
+            background: var(--${localStorage.appearanceId});
+        }
+        .input-data .underline:before {
+            background: var(--${localStorage.appearanceId});
+        }
+        #add {
+            background-color: var(--${localStorage.appearanceId});
+        }
+        #add>div{
+            background-image: url(../images/add-${localStorage.appearanceTheme}.svg)
+        }
+        ul li.checked::before {
+            background: url(../images/checked-${localStorage.appearanceId}.svg);
+        }`;
+        document.body.prepend(style);
+    }
     let options = { threshold: [0.5] };
     let observer = new IntersectionObserver(onEntry, options);
 
@@ -54,6 +84,10 @@ window.onload = function() {
         greeting.className = 'heading white-text smoothly-appearing';
 
         if (!localStorage.userName || localStorage.userName == undefined) {
+            localStorage.setItem('appearanceId', 'orange');
+            localStorage.setItem('appearanceValue', 'rgba(235, 135, 56, 0.05)');
+            localStorage.setItem('appearanceTheme', 'black');
+            setApprearance();
             let greetingContainer = document.getElementById('greeting-container');
 
             greeting.innerHTML = `Hi, stranger!`;
@@ -124,7 +158,7 @@ window.onload = function() {
                                 startContainer.classList.add('appeared');
                                 setTimeout(function() {
                                     startContainer.remove();
-                                    window.location.href = 'main.html';
+                                    window.location.href = './public/main.html';
                                 }, 1500);
                             }, 900);
                         }, 5000)
@@ -134,6 +168,7 @@ window.onload = function() {
                 }
             }
         } else {
+            setApprearance();
             greeting.innerHTML = `Welcome back, ${localStorage.userName}!`;
             startContainer.prepend(greeting);
             observer.observe(greeting);
@@ -151,15 +186,18 @@ window.onload = function() {
                     startContainer.classList.add('appeared');
                     setTimeout(function() {
                         startContainer.remove();
-                        window.location.href = 'main.html';
+                        window.location.href = './public/main.html';
                     }, 1500);
                 }, 900);
             }, 5000)
         }
-
     } else if (location.pathname.includes('main')) {
+        setApprearance();
         let mainContainer = document.getElementById('main-container');
+        markLink = document.getElementById('mark-link');
+
         mainContainer.classList.add('appeared');
+        markLink.style.color = `var(--${localStorage.appearanceId})`;
 
         let smoothlyAppearedElements = document.querySelectorAll('.smoothly-appearing'),
             topAppearedElements = document.querySelectorAll('.top-appearance'),
@@ -188,36 +226,16 @@ window.onload = function() {
 
         let dataArr = [],
             index = 0,
-            completed = 0;
+            completed = 0,
+            liItems;
 
         completedPercent.innerHTML = `${completed}%`;
 
         function completeUpdate() {
-            completedPercent.innerHTML = `${Math.round(completed / dataArr.length * 100)}%`;
-        }
-        console.log(localStorage);
-        if (localStorage['data'] && localStorage['data'].length > 2) {
-            dataArr = JSON.parse(localStorage.getItem('data'));
-            index = dataArr[dataArr.length - 1].id + 1;
-            for (let i = 0; i < dataArr.length; i++) {
-                let li = document.createElement('li');
-                li.className = 'medium-text li-item';
-                li.id = dataArr[i].id;
-                li.innerHTML = dataArr[i].task;
-                if (dataArr[i].status == 'checked') {
-                    li.classList.toggle("checked");
-                    completed++;
-                }
-                li.appendChild(document.createElement('span'));
-                ul.appendChild(li);
-            }
-            completeUpdate();
-        }
-        addButton.onclick = addItem;
-        document.onkeydown = function(e) {
-            if (e.which == 13) {
-                addItem();
-            }
+            completedPercent.innerHTML = dataArr.length > 0 ? `${Math.round(completed / dataArr.length * 100)}%` : '0%';
+            liItems = document.getElementsByClassName('li-item');
+            console.log(liItems);
+            console.log(liItems.length);
         }
 
         function addItem() {
@@ -238,14 +256,43 @@ window.onload = function() {
             }
         }
 
-        let liItems = document.getElementsByClassName('li-item');
-        for (var i = 0; i < liItems.length; i++) {
-            liItems[i].addEventListener("click", function(e) {
-                if (e.target.tagName === "LI") {
-                    console.log(e.target.id)
-                    e.target.classList.toggle("checked");
-                    dataArr[dataArr.findIndex(y => y.id == e.target.id)].status = 'checked';
+        console.log(localStorage);
+
+        if (localStorage['data'] && localStorage['data'].length > 2) {
+            dataArr = JSON.parse(localStorage.getItem('data'));
+            index = dataArr[dataArr.length - 1].id + 1;
+            for (let i = 0; i < dataArr.length; i++) {
+                let li = document.createElement('li');
+                li.className = 'medium-text li-item';
+                li.id = dataArr[i].id;
+                li.innerHTML = dataArr[i].task;
+                if (dataArr[i].status == 'checked') {
+                    li.classList.toggle("checked");
                     completed++;
+                }
+                li.appendChild(document.createElement('span'));
+                ul.appendChild(li);
+            }
+            completeUpdate();
+        }
+
+        addButton.onclick = addItem;
+        document.onkeydown = function(e) {
+            if (e.which == 13) {
+                addItem();
+            }
+        }
+
+        for (let i = 0; i < liItems.length; i++) {
+            liItems[i].onclick = function(e) {
+                if (e.target.tagName === "LI") {
+                    dataArr[dataArr.findIndex(y => y.id == e.target.id)].status == 'unchecked' ?
+                        (e.target.classList.toggle("checked"),
+                            dataArr[dataArr.findIndex(y => y.id == e.target.id)].status = 'checked',
+                            completed++) :
+                        (e.target.classList.remove("checked"),
+                            dataArr[dataArr.findIndex(y => y.id == e.target.id)].status = 'unchecked',
+                            completed--);
                 } else if (e.target.tagName === "SPAN") {
                     if (dataArr[dataArr.findIndex(y => y.id == e.target.parentNode.id)].status == 'checked') {
                         completed--;
@@ -255,6 +302,101 @@ window.onload = function() {
                 }
                 localStorage.setItem("data", JSON.stringify(dataArr));
                 completeUpdate();
+            };
+        }
+
+        let pomodoroButton = document.getElementById('pomodoro'),
+            startTimerButton = document.getElementById('start');
+
+        // let rounds = [{ time: 1499, label: 'First working round' },
+        //     { time: 299, label: 'Rest' },
+        //     { time: 1499, label: 'Second working round' },
+        //     { time: 299, label: 'Rest' },
+        //     { time: 1499, label: 'Third working round' },
+        //     { time: 299, label: 'Rest' },
+        //     { time: 1499, label: 'Fourth working round' },
+        //     { time: 299, label: 'Time for good rest' }
+        // ];
+        let rounds = [{ time: 10, label: 'First working round' },
+            { time: 9, label: 'Rest' },
+            { time: 8, label: 'Second working round' },
+            { time: 7, label: 'Rest' },
+            { time: 6, label: 'Third working round' },
+            { time: 5, label: 'Rest' },
+            { time: 4, label: 'Fourth working round' },
+            { time: 3, label: 'Time for good rest' }
+        ];
+        let timer;
+        let timerMinutes = document.getElementById('timer-minutes'),
+            timerSeconds = document.getElementById('timer-seconds');
+
+        let modalText = document.getElementById('modal-text');
+
+        pomodoroButton.onclick = function() {
+            modalText.innerHTML = `Get ready for the first round, ${localStorage.userName}`;
+            timerMinutes.innerHTML = '25';
+            timerSeconds.innerHTML = '00';
+        }
+
+        startTimerButton.onclick = function() {
+            async function pomodoroRound(n) {
+                let sec = rounds[0].time;
+
+                let promise = new Promise((resolve, reject) => {
+                    modalText.innerHTML = `${rounds[n].label}`;
+                    timer = setInterval(() => {
+                        timerMinutes.innerHTML = Math.floor(sec / 60) > 9 ? `${Math.floor(sec / 60)}` : `0${Math.floor(sec / 60)}`;
+                        timerSeconds.innerHTML = sec % 60 > 9 ? `${sec % 60}` : `0${sec % 60}`;
+                        sec--;
+                        console.log(sec);
+                        if (sec < 0) {
+                            console.log('end');
+                            resolve(n);
+                            clearInterval(timer);
+                        };
+                    }, 1000);
+                });
+                let result = await promise;
+                if (result == result.length - 1) {
+                    return result;
+                } else {
+                    n++;
+                    pomodoroRound(n);
+                }
+            }
+            pomodoroRound(0);
+
+
+
+        }
+        closeModalButton.onclick = function() {
+            clearInterval(timer);
+        }
+
+    } else if (location.pathname.includes('settings')) {
+        setApprearance();
+        let settingsContainer = document.getElementById('settings-container');
+        settingsLink = document.getElementById('settings-link');
+
+        settingsContainer.classList.add('appeared');
+        settingsLink.style.color = `var(--${localStorage.appearanceId})`;
+
+        let smoothlyAppearedElements = document.querySelectorAll('.smoothly-appearing'),
+            bottomAppearedElements = document.querySelectorAll('.bottom-appearance');
+
+        for (let element of smoothlyAppearedElements) { observer.observe(element); }
+        for (let element of bottomAppearedElements) { observer.observe(element); }
+
+        let selectColorButtons = document.getElementsByClassName('select-color-button');
+
+        for (var i = 0; i < selectColorButtons.length; i++) {
+            selectColorButtons[i].addEventListener("click", function(e) {
+                let idParts = e.target.id.split(',');
+                localStorage.setItem('appearanceId', idParts[0]);
+                localStorage.setItem('appearanceValue', e.target.value);
+                localStorage.setItem('appearanceTheme', idParts[1]);
+                setApprearance();
+                location.reload();
             });
         }
     }

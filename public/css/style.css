@@ -10,6 +10,7 @@
     --deep-ocean: #0928CE;
     --lavender: #9667C5;
     --red: #E63001;
+    --raspberry: #DB192D;
     --golden: #F5EC4D;
 }
 
@@ -22,13 +23,9 @@
 body {
     margin: 0;
     padding: 0;
-    background: rgba(235, 135, 56, 0.05);
+    /* background: rgba(235, 135, 56, 0.05); */
     font-family: 'Mabrope', sans-serif;
     width: 100%;
-}
-
-.colored-body {
-    background: var(--orange);
 }
 
 @media screen and (min-width: 1025px) {
@@ -39,14 +36,20 @@ body {
         flex-direction: row;
     }
     .calendar-box>div:first-child+div:not(:last-child) {
-        border-left: none;
-        border-right: none;
+        margin-left: -0.2rem;
+        margin-right: -0.2rem;
     }
     .box {
         padding: 5rem 10rem;
     }
+    .modal-container {
+        min-width: 43rem;
+    }
     .more {
         gap: 15rem;
+    }
+    .modal-container span {
+        margin: -1rem -5rem 0rem 0rem;
     }
 }
 
@@ -58,14 +61,17 @@ body {
         flex-direction: column;
     }
     .calendar-box>div:first-child+div:not(:last-child) {
-        border-top: none;
-        border-bottom: none;
+        margin-top: -0.2rem;
+        margin-bottom: -0.2rem;
     }
     .box {
         padding: 5rem 8rem;
     }
     .more {
         gap: 5rem;
+    }
+    .modal-container span {
+        margin: -1rem -4rem 0rem 0rem;
     }
 }
 
@@ -77,14 +83,17 @@ body {
         flex-direction: column;
     }
     .calendar-box>div:first-child+div:not(:last-child) {
-        border-top: none;
-        border-bottom: none;
+        margin-top: -0.2rem;
+        margin-bottom: -0.2rem;
     }
     .box {
         padding: 5rem;
     }
     .more {
         gap: 5rem;
+    }
+    .modal-container span {
+        margin: -1rem -2rem 0rem 0rem;
     }
 }
 
@@ -94,13 +103,13 @@ body {
 .button {
     cursor: pointer;
     padding: .5rem 6rem;
-    background-color: var(--orange);
+    /* background-color: var(--orange); */
     border: 0.15rem solid var(--black);
     transition: all .3s ease-in-out;
 }
 
 .button:hover {
-    box-shadow: .3rem .3rem var(--orange);
+    /* box-shadow: .3rem .3rem var(--orange); */
     transform: translate(-0.2rem, -0.2rem);
 }
 
@@ -117,6 +126,7 @@ body {
     font-weight: 300;
     line-height: 160%;
     font-size: 1rem;
+    letter-spacing: .05rem;
 }
 
 .medium-text {
@@ -136,6 +146,7 @@ body {
 .heading {
     text-align: center;
     font-family: 'Raleway', sans-serif;
+    color: var(--black);
     font-weight: 500;
     font-size: 4rem;
     height: auto;
@@ -321,7 +332,7 @@ body {
     align-items: center;
     gap: 5rem;
     width: 100%;
-    background: var(--orange);
+    /* background: var(--orange); */
     height: 100vh;
 }
 
@@ -386,7 +397,7 @@ body {
     height: 100%;
     width: 100%;
     content: "";
-    background: var(--orange);
+    /* background: var(--orange); */
     transform: scaleX(0);
     transform-origin: center;
     transition: transform 0.3s ease;
@@ -400,8 +411,24 @@ body {
 
 /* modal */
 
+.modal-container p {
+    text-align: center;
+}
+
+.modal-container p:first-child {
+    margin: 0rem auto 1rem auto;
+}
+
 .modal-content {
-    gap: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.modal-content button {
+    margin-top: 10rem;
 }
 
 .modal {
@@ -446,6 +473,18 @@ body {
     background: transparent;
 }
 
+a {
+    text-decoration: none;
+    color: var(--dark-gray);
+    transition: all .3s ease-in-out;
+}
+
+.header a:hover {
+    transform: scale(105%);
+    margin: 0rem 1rem;
+    color: var(--black);
+}
+
 
 /* main part */
 
@@ -461,6 +500,7 @@ body {
     gap: 5rem;
     padding: 1rem;
     width: 100%;
+    height: auto;
     max-width: 1300px;
     min-height: 100vh;
 }
@@ -518,7 +558,7 @@ body {
 #add {
     cursor: pointer;
     padding: .5rem 1.5rem;
-    background-color: var(--orange);
+    /* background-color: var(--orange); */
     border: 0.15rem solid var(--black);
     transition: all .3s ease-in-out;
 }
@@ -584,12 +624,11 @@ ul li.checked span {
 
 ul li.checked::before {
     left: 0rem;
-    background: url(../../images/checked.svg);
     background-position: center center;
     background-size: cover;
 }
 
-li span {
+span {
     align-self: flex-end;
     background: url(../../images/delete.svg);
     background-position: center center;
@@ -601,7 +640,7 @@ li span {
     cursor: pointer;
 }
 
-li span:hover {
+span:hover {
     transform: scale(105%);
 }
 
@@ -628,4 +667,133 @@ li span:hover {
 
 #pomodoro {
     justify-self: flex-end;
+}
+
+.timer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* settings page */
+
+#settings-container {
+    visibility: hidden;
+    height: 0;
+}
+
+#settings-container.appeared {
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5rem;
+    padding: 1rem;
+    width: 100%;
+    height: auto;
+    max-width: 1300px;
+    min-height: 100vh;
+}
+
+#settings-container>div>p:first-child {
+    align-self: flex-start;
+}
+
+.appearance-subbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+}
+
+.color-boxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.color-box {
+    border: .2rem solid var(--black);
+    height: 10rem;
+    width: 25rem;
+}
+
+.color-box:last-child {
+    background: var(--white);
+}
+
+#clockwork-orange-1 {
+    background: var(--orange);
+}
+
+#clockwork-orange-2 {
+    background: rgba(235, 135, 56, 0.05);
+}
+
+#golden-retriever-1 {
+    background: var(--golden);
+}
+
+#golden-retriever-2 {
+    background: rgba(236, 226, 69, 0.05);
+}
+
+#matcha-1 {
+    background: var(--matcha);
+}
+
+#matcha-2 {
+    background: rgba(180, 230, 73, 0.05);
+}
+
+#red-1 {
+    background: var(--red);
+}
+
+#red-2 {
+    background: rgba(230, 48, 1, 0.05);
+}
+
+#raspberry-1 {
+    background: var(--raspberry);
+}
+
+#raspberry-2 {
+    background: rgba(219, 25, 45, 0.05);
+}
+
+#lavender-1 {
+    background: var(--lavender);
+}
+
+#lavender-2 {
+    background: rgba(150, 103, 197, 0.05);
+}
+
+#ocean-1 {
+    background: var(--deep-ocean);
+}
+
+#ocean-2 {
+    background: rgba(0, 40, 206, 0.05);
+}
+
+
+/* footer */
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15rem;
+    width: 100%;
+    height: 10rem;
+    text-align: center;
+    background: var(--black);
 }
