@@ -68,7 +68,7 @@ window.onload = function() {
     let observer = new IntersectionObserver(onEntry, options);
 
     if (location.pathname.includes('index') || location.pathname.split('').pop() == '/') { // главная страница 
-        localStorage.clear();
+        //localStorage.clear();
 
         function changeElem(...args) { // elem, oldclass, newclass, newtext
             args[[0]].classList.remove(args[[1]]);
@@ -83,7 +83,7 @@ window.onload = function() {
         let greeting = document.createElement('p');
         greeting.className = 'heading white-text smoothly-appearing';
 
-        if (!localStorage.userName || localStorage.userName == undefined) {
+        if (!localStorage.user || localStorage.user == undefined || localStorage.mark != true) {
             localStorage.setItem('appearanceId', 'orange');
             localStorage.setItem('appearanceValue', 'rgba(235, 135, 56, 0.05)');
             localStorage.setItem('appearanceTheme', 'black');
@@ -132,7 +132,8 @@ window.onload = function() {
                     modalHeading.innerHTML = `Oops...`;
                     modalText.innerHTML = `Please introduce yourself to continue`;
                 } else {
-                    localStorage.setItem('userName', userName.value);
+                    localStorage.setItem('user', userName.value);
+                    localStorage.setItem('mark', true);
 
                     greeting.classList.add('top-disappearance');
                     greetingContainer.classList.add('bottom-disappearance');
@@ -142,7 +143,7 @@ window.onload = function() {
                     setTimeout(function() {
                         greeting.remove();
                         greetingContainer.remove();
-                        changeElem(greeting, 'top-disappearance', 'smoothly-appearing', `Welcome, ${localStorage.userName}!`);
+                        changeElem(greeting, 'top-disappearance', 'smoothly-appearing', `Welcome, ${localStorage.user}!`);
                         startContainer.prepend(greeting);
 
                         setTimeout(function() {
@@ -169,7 +170,7 @@ window.onload = function() {
             }
         } else {
             setApprearance();
-            greeting.innerHTML = `Welcome back, ${localStorage.userName}!`;
+            greeting.innerHTML = `Welcome back, ${localStorage.user}!`;
             startContainer.prepend(greeting);
             observer.observe(greeting);
 
@@ -333,7 +334,7 @@ window.onload = function() {
         let modalText = document.getElementById('modal-text');
 
         pomodoroButton.onclick = function() {
-            modalText.innerHTML = `Get ready for the first round, ${localStorage.userName}`;
+            modalText.innerHTML = `Get ready for the first round, ${localStorage.user}`;
             timerMinutes.innerHTML = '25';
             timerSeconds.innerHTML = '00';
         }
@@ -399,5 +400,19 @@ window.onload = function() {
                 location.reload();
             });
         }
+    } else if (location.pathname.includes('profile')) {
+        setApprearance();
+        let profileContainer = document.getElementById('profile-container');
+        profileLink = document.getElementById('profile-link');
+
+        profileContainer.classList.add('appeared');
+        profileLink.style.color = `var(--${localStorage.appearanceId})`;
+
+        let smoothlyAppearedElements = document.querySelectorAll('.smoothly-appearing'),
+            bottomAppearedElements = document.querySelectorAll('.bottom-appearance');
+
+        for (let element of smoothlyAppearedElements) { observer.observe(element); }
+        for (let element of bottomAppearedElements) { observer.observe(element); }
+
     }
 }

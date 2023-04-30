@@ -51,6 +51,10 @@ body {
     .modal-container span {
         margin: -1rem -5rem 0rem 0rem;
     }
+    .color-box {
+        height: 10rem;
+        width: 25rem;
+    }
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
@@ -73,6 +77,10 @@ body {
     .modal-container span {
         margin: -1rem -4rem 0rem 0rem;
     }
+    .color-box {
+        height: 8rem;
+        width: 20rem;
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -94,6 +102,10 @@ body {
     }
     .modal-container span {
         margin: -1rem -2rem 0rem 0rem;
+    }
+    .color-box {
+        height: 6rem;
+        width: 13rem;
     }
 }
 
@@ -358,7 +370,6 @@ body {
     position: relative;
     height: 2.86rem;
     width: 18rem;
-    background: transparent;
 }
 
 .input-data input {
@@ -367,6 +378,7 @@ body {
     border: none;
     font-size: 1rem;
     padding: 1rem;
+    background: transparent;
     border-bottom: 0.2rem solid var(--gray);
 }
 
@@ -702,7 +714,7 @@ span:hover {
     align-self: flex-start;
 }
 
-.appearance-subbox {
+.subbox {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -719,8 +731,6 @@ span:hover {
 
 .color-box {
     border: .2rem solid var(--black);
-    height: 10rem;
-    width: 25rem;
 }
 
 .color-box:last-child {
@@ -781,6 +791,30 @@ span:hover {
 
 #ocean-2 {
     background: rgba(0, 40, 206, 0.05);
+}
+
+
+/* profile page */
+
+#profile-container {
+    visibility: hidden;
+    height: 0;
+}
+
+#profile-container.appeared {
+    visibility: visible;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding: 1rem;
+    width: 100%;
+    height: auto;
+    max-width: 1300px;
+    min-height: 100vh;
+}
+
+#profile-container>div>p:first-child {
+    align-self: flex-start;
 }
 
 
