@@ -68,7 +68,7 @@ window.onload = function() {
     let observer = new IntersectionObserver(onEntry, options);
 
     if (location.pathname.includes('index') || location.pathname.split('').pop() == '/') { // главная страница 
-        //localStorage.clear();
+        localStorage.clear();
 
         function changeElem(...args) { // elem, oldclass, newclass, newtext
             args[[0]].classList.remove(args[[1]]);
