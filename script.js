@@ -41,7 +41,7 @@ window.onload = function() {
             background: ${localStorage.appearanceValue};
         }
         .button {
-            background-color: var(--${localStorage.appearanceId});
+            background-color: transparent;
             color: var(--${localStorage.appearanceTheme});
             }
         .button:hover {
@@ -194,7 +194,7 @@ window.onload = function() {
     } else if (location.pathname.includes('main')) {
         setApprearance();
         let mainContainer = document.getElementById('main-container');
-        markLink = document.getElementById('mark-link');
+            markLink = document.getElementById('mark-link');
 
         mainContainer.classList.add('appeared');
         markLink.style.color = `var(--${localStorage.appearanceId})`;
@@ -315,29 +315,19 @@ window.onload = function() {
         let pomodoroButton = document.getElementById('pomodoro'),
             startTimerButton = document.getElementById('start');
 
-        // let rounds = [{ time: 1499, label: 'First working round' },
-        //     { time: 299, label: 'Rest' },
-        //     { time: 1499, label: 'Second working round' },
-        //     { time: 299, label: 'Rest' },
-        //     { time: 1499, label: 'Third working round' },
-        //     { time: 299, label: 'Rest' },
-        //     { time: 1499, label: 'Fourth working round' },
-        //     { time: 299, label: 'Time for good rest' }
-        // ];
-        let rounds = [{ time: 10, label: 'First working round' },
-            { time: 9, label: 'Rest' },
-            { time: 8, label: 'Second working round' },
-            { time: 7, label: 'Rest' },
-            { time: 6, label: 'Third working round' },
-            { time: 5, label: 'Rest' },
-            { time: 4, label: 'Fourth working round' },
-            { time: 3, label: 'Time for good rest' }
+        let rounds = [{ time: 1499, label: 'First working round' },
+            { time: 299, label: 'Rest' },
+            { time: 1499, label: 'Second working round' },
+            { time: 299, label: 'Rest' },
+            { time: 1499, label: 'Third working round' },
+            { time: 299, label: 'Rest' },
+            { time: 1499, label: 'Fourth working round' },
+            { time: 299, label: 'Time for good rest' }
         ];
         let timer;
         let timerMinutes = document.getElementById('timer-minutes'),
-            timerSeconds = document.getElementById('timer-seconds');
-
-        let modalText = document.getElementById('modal-text');
+            timerSeconds = document.getElementById('timer-seconds'),
+            modalText = document.getElementById('modal-text');
 
         pomodoroButton.onclick = function() {
             modalText.innerHTML = `Get ready for the first round, ${localStorage.user}`;
@@ -397,15 +387,36 @@ window.onload = function() {
         for (let element of rotateBottomRightAppearedElements) { observer.observe(element); }
 
         let selectColorButtons = document.getElementsByClassName('select-color-button');
-
+        
         for (var i = 0; i < selectColorButtons.length; i++) {
             selectColorButtons[i].addEventListener("click", function(e) {
+                let but = document.getElementById(`${e.target.id}`);
+
+                let leftLine = but.parentNode.childNodes[1];
+                let rightLine = but.parentNode.childNodes[5];
+                leftLine.style.height =`${but.offsetHeight}px`;
+                rightLine.style.height =`${but.offsetHeight}px`;
+
                 let idParts = e.target.id.split(',');
                 localStorage.setItem('appearanceId', idParts[0]);
                 localStorage.setItem('appearanceValue', e.target.value);
                 localStorage.setItem('appearanceTheme', idParts[1]);
                 setApprearance();
-                location.reload();
+                but.innerHTML = '';
+                but.style.boxShadow = 'none';
+                but.style.width = '0rem';
+                but.style.padding = '0rem';
+                but.style.visibility = 'hidden';
+                leftLine.style.visibility = 'visible';
+                rightLine.style.visibility = 'visible';
+                leftLine.style.height =`${leftLine.offsetHeight / 5 * 2}px`;
+                rightLine.style.height =`${leftLine.offsetHeight / 5 * 3}px`;
+                rightLine.style.marginLeft =`-0.05rem`;
+                leftLine.style.transform  = 'translateY(-95.5%) rotate(-20deg)';
+                rightLine.style.transform  = 'translateY(-100%) rotate(20deg)';
+                setTimeout(function(){
+                    location.reload()
+                }, 1000);
             });
         }
     } else if (location.pathname.includes('profile')) {
