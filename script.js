@@ -101,7 +101,7 @@ window.onload = function() {
 
         if (!localStorage.user || localStorage.user == undefined || !localStorage.mark || localStorage.mark != 'true') {
             localStorage.setItem('appearanceId', 'orange');
-            localStorage.setItem('appearanceValue', 'rgba(235, 135, 56, 0.05)');
+            localStorage.setItem('appearanceValue', 'rgba(235, 135, 56, 0.08)');
             localStorage.setItem('appearanceTheme', 'black');
             setApprearance();
             let greetingContainer = document.getElementById('greeting-container');
