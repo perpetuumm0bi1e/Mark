@@ -33,7 +33,7 @@ window.onload = function() {
             }
         });
     }
-
+//background-color: var(--${localStorage.appearanceId});
     function setApprearance() {
         let style = document.createElement('style');
         style.innerHTML = `
@@ -41,11 +41,26 @@ window.onload = function() {
             background: ${localStorage.appearanceValue};
         }
         .button {
-            background-color: transparent;
+            cursor: pointer;
+            padding: .5rem 6rem;
+            border: 0.15rem solid var(--black);
+            background-color: var(--${localStorage.appearanceId});
+            transition: all .2s ease-in-out;
             color: var(--${localStorage.appearanceTheme});
-            }
+        }
         .button:hover {
             box-shadow: .3rem .3rem var(--${localStorage.appearanceId});
+            transform: translate(-0.143rem, -0.143rem);
+            cursor: pointer;
+        }
+        .button:active {
+            transform: translate(0.143rem, 0.143rem);
+            box-shadow: none;
+        }
+        .subbox button{
+            margin-top: 5rem;
+            background-color: transparent;
+            color: var(--black);
         }
         #start-container {
             background: var(--${localStorage.appearanceId});
@@ -197,7 +212,7 @@ window.onload = function() {
             markLink = document.getElementById('mark-link');
 
         mainContainer.classList.add('appeared');
-        markLink.style.color = `var(--${localStorage.appearanceId})`;
+        markLink.style.fontWeight = `bold`;
 
         let smoothlyAppearedElements = document.querySelectorAll('.smoothly-appearing'),
             topAppearedElements = document.querySelectorAll('.top-appearance'),
@@ -370,7 +385,7 @@ window.onload = function() {
         settingsLink = document.getElementById('settings-link');
 
         settingsContainer.classList.add('appeared');
-        settingsLink.style.color = `var(--${localStorage.appearanceId})`;
+        settingsLink.style.fontWeight = `bold`;
 
         let appearedElements = document.querySelectorAll('.appearing'),
             bottomAppearedElements = document.querySelectorAll('.bottom-appearance'),
@@ -390,33 +405,12 @@ window.onload = function() {
         
         for (var i = 0; i < selectColorButtons.length; i++) {
             selectColorButtons[i].addEventListener("click", function(e) {
-                let but = document.getElementById(`${e.target.id}`);
-
-                let leftLine = but.parentNode.childNodes[1];
-                let rightLine = but.parentNode.childNodes[5];
-                leftLine.style.height =`${but.offsetHeight}px`;
-                rightLine.style.height =`${but.offsetHeight}px`;
-
                 let idParts = e.target.id.split(',');
                 localStorage.setItem('appearanceId', idParts[0]);
                 localStorage.setItem('appearanceValue', e.target.value);
                 localStorage.setItem('appearanceTheme', idParts[1]);
                 setApprearance();
-                but.innerHTML = '';
-                but.style.boxShadow = 'none';
-                but.style.width = '0rem';
-                but.style.padding = '0rem';
-                but.style.visibility = 'hidden';
-                leftLine.style.visibility = 'visible';
-                rightLine.style.visibility = 'visible';
-                leftLine.style.height =`${leftLine.offsetHeight / 5 * 2}px`;
-                rightLine.style.height =`${leftLine.offsetHeight / 5 * 3}px`;
-                rightLine.style.marginLeft =`-0.05rem`;
-                leftLine.style.transform  = 'translateY(-95.5%) rotate(-20deg)';
-                rightLine.style.transform  = 'translateY(-100%) rotate(20deg)';
-                setTimeout(function(){
-                    location.reload()
-                }, 1000);
+                location.reload()
             });
         }
     } else if (location.pathname.includes('profile')) {
@@ -429,7 +423,7 @@ window.onload = function() {
             bottomAppearedElements = document.querySelectorAll('.bottom-appearance');
 
         profileContainer.classList.add('appeared');
-        profileLink.style.color = `var(--${localStorage.appearanceId})`;
+        profileLink.style.fontWeight = `bold`;
 
         for (let element of smoothlyAppearedElements) { observer.observe(element); }
         for (let element of bottomAppearedElements) { observer.observe(element); }

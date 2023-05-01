@@ -5,10 +5,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="./css/style.css" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="apple-touch-icon" sizes="180x180" href="../favicons/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="../favicons/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="../favicons/favicon-16x16.png" />
+		<link rel="manifest" href="../site.webmanifest" />
 		<title>Mark - your task manager</title>
 	</head>
 
@@ -23,136 +23,147 @@
 			</div>
 			<div class="header">
 				<a class="small-text gray-text" id="settings-link" href="./settings.html">Settings</a>
-				<a class="small-text gray-text" id="mark-link" href="./main.html"><strong>Mark</strong></a>
+				<a class="small-text gray-text" id="mark-link" href="./main.html">Mark</a>
 				<a class="small-text gray-text" id="profile-link" href="./profile.html">Profile</a>
 			</div>
 			<div id="settings-container">
 				<div>
 					<p class="appearing heading">Appearance</p>
 				</div>
-				<div class="subbox">
-					<p class="medium-text gray-text top-appearance">&#171;Clockwork orange&#187;</p>
-					<div class="color-boxes">
-						<div class="color-box rotate-bottom-appearance-right" id="clockwork-orange-1"></div>
-						<div class="color-box rotate-bottom-appearance-left" id="clockwork-orange-2"></div>
+				<div class="horizontal-divider"></div>
+				<div class="subboxes">
+					<div class="subbox">
+						<p class="appearing small-heading">Clockwork orange</p>
+						<div class="color-boxes">
+							<div class="color-box rotate-bottom-appearance-right" id="clockwork-orange-1">
+								<p class="subheading">Accent</p>
+							</div>
+							<div class="color-box rotate-bottom-appearance-left" id="clockwork-orange-2">
+								<p class="subheading">Background</p>
+							</div>
+						</div>
+						<div class="button-div">
+							<button
+								class="button medium-text select-color-button bottom-appearance"
+								id="orange,black"
+								value="rgba(235, 135, 56, 0.08)">
+								Select
+							</button>
+						</div>
 					</div>
-					<!-- <button
-						class="button medium-text select-color-button bottom-appearance"
-						id="orange,black"
-						value="rgba(235, 135, 56, 0.05)">
-						Select
-					</button> -->
-					<div class="button-div">
-						<div id="left-line"></div>
-						<button
-							class="button medium-text select-color-button bottom-appearance"
-							id="orange,black"
-							value="rgba(235, 135, 56, 0.05)">
-							Select
-						</button>
-						<div id="right-line"></div>
+					<div class="subbox">
+						<p class="appearing small-heading">Golden retriever</p>
+						<div class="color-boxes">
+							<div class="color-box rotate-bottom-appearance-right" id="golden-retriever-1">
+								<p class="subheading">Accent</p>
+							</div>
+							<div class="color-box rotate-bottom-appearance-left" id="golden-retriever-2">
+								<p class="subheading">Background</p>
+							</div>
+						</div>
+						<div class="button-div">
+							<button
+								class="button medium-text select-color-button bottom-appearances"
+								id="golden,black"
+								value="rgba(236, 226, 69, 0.08)">
+								Select
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="subbox">
-					<p class="medium-text gray-text top-appearance">Golden retriever</p>
-					<div class="color-boxes">
-						<div class="color-box rotate-bottom-appearance-right" id="golden-retriever-1"></div>
-						<div class="color-box rotate-bottom-appearance-left" id="golden-retriever-2"></div>
+					<div class="subbox">
+						<p class="appearing small-heading">Matcha</p>
+						<div class="color-boxes">
+							<div class="color-box rotate-bottom-appearance-right" id="matcha-1">
+								<p class="subheading">Accent</p>
+							</div>
+							<div class="color-box rotate-bottom-appearance-left" id="matcha-2">
+								<p class="subheading">Background</p>
+							</div>
+						</div>
+						<div class="button-div">
+							<button
+								class="button medium-text select-color-button bottom-appearance"
+								id="matcha,black"
+								value="rgba(180, 230, 73, 0.05)">
+								Select
+							</button>
+						</div>
 					</div>
-					<div class="button-div">
-						<div id="left-line"></div>
-						<button
-							class="button medium-text select-color-button bottom-appearances"
-							id="golden,black bottom-appearance"
-							value="rgba(236, 226, 69, 0.05)">
-							Select
-						</button>
-						<div id="right-line"></div>
+					<div class="subbox">
+						<p class="appearing small-heading">Red is the new black</p>
+						<div class="color-boxes">
+							<div class="color-box rotate-bottom-appearance-right" id="red-1">
+								<p class="subheading">Accent</p>
+							</div>
+							<div class="color-box rotate-bottom-appearance-left" id="red-2">
+								<p class="subheading">Background</p>
+							</div>
+						</div>
+						<div class="button-div">
+							<button
+								class="button medium-text select-color-button bottom-appearance"
+								id="red,black"
+								value="rgba(238, 86, 53, 0.08)">
+								Select
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="subbox">
-					<p class="medium-text gray-text top-appearance">Match</p>
-					<div class="color-boxes">
-						<div class="color-box rotate-bottom-appearance-right" id="matcha-1"></div>
-						<div class="color-box rotate-bottom-appearance-left" id="matcha-2"></div>
+					<div class="subbox">
+						<p class="appearing small-heading">Juicy raspberry</p>
+						<div class="color-boxes">
+							<div class="color-box rotate-bottom-appearance-right" id="raspberry-1">
+								<p class="subheading">Accent</p>
+							</div>
+							<div class="color-box rotate-bottom-appearance-left" id="raspberry-2">
+								<p class="subheading">Background</p>
+							</div>
+						</div>
+						<div class="button-div">
+							<button
+								class="button medium-text select-color-button bottom-appearance"
+								id="raspberry,black"
+								value="rgba(246, 77, 95, 0.08)">
+								Select
+							</button>
+						</div>
 					</div>
-					<div class="button-div">
-						<div id="left-line"></div>
-						<button
-							class="button medium-text select-color-button bottom-appearance"
-							id="matcha,black"
-							value="rgba(180, 230, 73, 0.05)">
-							Select
-						</button>
-						<div id="right-line"></div>
+					<div class="subbox">
+						<p class="appearing small-heading">Lavender</p>
+						<div class="color-boxes">
+							<div class="color-box rotate-bottom-appearance-right" id="lavender-1">
+								<p class="subheading">Accent</p>
+							</div>
+							<div class="color-box rotate-bottom-appearance-left" id="lavender-2">
+								<p class="subheading">Background</p>
+							</div>
+						</div>
+						<div class="button-div">
+							<button
+								class="button medium-text select-color-button bottom-appearance"
+								id="lavender,black"
+								value="rgba(174, 129, 219, 0.08)">
+								Select
+							</button>
+						</div>
 					</div>
-				</div>
-				<div class="subbox">
-					<p class="medium-text gray-text top-appearance">Red is the new black</p>
-					<div class="color-boxes">
-						<div class="color-box rotate-bottom-appearance-right" id="red-1"></div>
-						<div class="color-box rotate-bottom-appearance-left" id="red-2"></div>
-					</div>
-					<div class="button-div">
-						<div id="left-line"></div>
-						<button
-							class="button medium-text select-color-button bottom-appearance"
-							id="red,black"
-							value="rgba(230, 48, 1, 0.05)">
-							Select
-						</button>
-						<div id="right-line"></div>
-					</div>
-				</div>
-				<div class="subbox">
-					<p class="medium-text gray-text top-appearance">Juicy raspberry</p>
-					<div class="color-boxes">
-						<div class="color-box rotate-bottom-appearance-right" id="raspberry-1"></div>
-						<div class="color-box rotate-bottom-appearance-left" id="raspberry-2"></div>
-					</div>
-					<div class="button-div">
-						<div id="left-line"></div>
-						<button
-							class="button medium-text select-color-button bottom-appearance"
-							id="raspberry,black"
-							value="rgba(219, 25, 45, 0.05)">
-							Select
-						</button>
-						<div id="right-line"></div>
-					</div>
-				</div>
-				<div class="subbox">
-					<p class="medium-text gray-text top-appearance">Lavender</p>
-					<div class="color-boxes">
-						<div class="color-box rotate-bottom-appearance-right" id="lavender-1"></div>
-						<div class="color-box rotate-bottom-appearance-left" id="lavender-2"></div>
-					</div>
-					<div class="button-div">
-						<div id="left-line"></div>
-						<button
-							class="button medium-text select-color-button bottom-appearance"
-							id="lavender,black"
-							value="rgba(150, 103, 197, 0.05)">
-							Select
-						</button>
-						<div id="right-line"></div>
-					</div>
-				</div>
-				<div class="subbox">
-					<p class="medium-text gray-text top-appearance">Deep ocean</p>
-					<div class="color-boxes">
-						<div class="color-box rotate-bottom-appearance-right" id="ocean-1"></div>
-						<div class="color-box rotate-bottom-appearance-left" id="ocean-2"></div>
-					</div>
-					<div class="button-div">
-						<div id="left-line"></div>
-						<button
-							class="button medium-text select-color-button bottom-appearance"
-							id="deep-ocean,white"
-							value="rgba(0, 40, 206, 0.05)">
-							Select
-						</button>
-						<div id="right-line"></div>
+					<div class="subbox">
+						<p class="appearing small-heading">Ocean blue</p>
+						<div class="color-boxes">
+							<div class="color-box rotate-bottom-appearance-right" id="ocean-1">
+								<p class="subheading">Accent</p>
+							</div>
+							<div class="color-box rotate-bottom-appearance-left" id="ocean-2">
+								<p class="subheading">Background</p>
+							</div>
+						</div>
+						<div class="button-div">
+							<button
+								class="button medium-text select-color-button bottom-appearance"
+								id="ocean,black"
+								value="rgba(86, 109, 232, 0.08)">
+								Select
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
