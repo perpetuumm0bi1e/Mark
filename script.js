@@ -60,7 +60,7 @@ window.onload = function() {
             background-image: url(../images/add-${localStorage.appearanceTheme}.svg)
         }
         ul li.checked::before {
-            background: url(../images/checked-${localStorage.appearanceId}.svg);
+            background: var(--${localStorage.appearanceId});
         }`;
         document.body.prepend(style);
     }
@@ -69,6 +69,7 @@ window.onload = function() {
 
     if (location.pathname.includes('index') || location.pathname.split('').pop() == '/') { // главная страница 
         //localStorage.clear();
+        console.log(localStorage)
 
         function changeElem(...args) { // elem, oldclass, newclass, newtext
             args[[0]].classList.remove(args[[1]]);
@@ -83,7 +84,7 @@ window.onload = function() {
         let greeting = document.createElement('p');
         greeting.className = 'heading white-text smoothly-appearing';
 
-        if (!localStorage.user || localStorage.user == undefined || localStorage.mark != true) {
+        if (!localStorage.user || localStorage.user == undefined || !localStorage.mark || localStorage.mark != 'true') {
             localStorage.setItem('appearanceId', 'orange');
             localStorage.setItem('appearanceValue', 'rgba(235, 135, 56, 0.05)');
             localStorage.setItem('appearanceTheme', 'black');
@@ -163,9 +164,7 @@ window.onload = function() {
                                 }, 1500);
                             }, 900);
                         }, 5000)
-
                     }, 900)
-                    console.log(localStorage);
                 }
             }
         } else {
@@ -235,29 +234,26 @@ window.onload = function() {
         function completeUpdate() {
             completedPercent.innerHTML = dataArr.length > 0 ? `${Math.round(completed / dataArr.length * 100)}%` : '0%';
             liItems = document.getElementsByClassName('li-item');
-            console.log(liItems);
-            console.log(liItems.length);
         }
 
         function addItem() {
-            console.log('before adding');
-            console.log(localStorage);
             if (taskInput.value) {
                 let li = document.createElement('li');
                 li.className = 'medium-text li-item';
                 li.id = index;
                 li.innerHTML = taskInput.value;
-                li.appendChild(document.createElement('span'));
+                let span = document.createElement('span');
+                span.innerHTML = '<div></div><div></div>';
+                li.appendChild(span);
                 ul.appendChild(li);
                 dataArr.push({ "id": index, "task": taskInput.value, "status": 'unchecked' });
                 index++;
                 taskInput.value = '';
                 localStorage.setItem("data", JSON.stringify(dataArr));
                 completeUpdate();
+                checkLi();
             }
         }
-
-        console.log(localStorage);
 
         if (localStorage['data'] && localStorage['data'].length > 2) {
             dataArr = JSON.parse(localStorage.getItem('data'));
@@ -271,10 +267,13 @@ window.onload = function() {
                     li.classList.toggle("checked");
                     completed++;
                 }
-                li.appendChild(document.createElement('span'));
+                let span = document.createElement('span');
+                span.innerHTML = '<div></div><div></div>';
+                li.appendChild(span);
                 ul.appendChild(li);
             }
             completeUpdate();
+            checkLi();
         }
 
         addButton.onclick = addItem;
@@ -284,26 +283,33 @@ window.onload = function() {
             }
         }
 
-        for (let i = 0; i < liItems.length; i++) {
-            liItems[i].onclick = function(e) {
-                if (e.target.tagName === "LI") {
-                    dataArr[dataArr.findIndex(y => y.id == e.target.id)].status == 'unchecked' ?
-                        (e.target.classList.toggle("checked"),
-                            dataArr[dataArr.findIndex(y => y.id == e.target.id)].status = 'checked',
-                            completed++) :
-                        (e.target.classList.remove("checked"),
-                            dataArr[dataArr.findIndex(y => y.id == e.target.id)].status = 'unchecked',
-                            completed--);
-                } else if (e.target.tagName === "SPAN") {
-                    if (dataArr[dataArr.findIndex(y => y.id == e.target.parentNode.id)].status == 'checked') {
-                        completed--;
+        function checkLi() {
+            for (let i = 0; i < liItems.length; i++) {
+                liItems[i].onclick = function(e) {
+                    if (e.target.tagName === "LI") {
+                        dataArr[dataArr.findIndex(y => y.id == e.target.id)].status == 'unchecked' ?
+                            (e.target.classList.toggle("checked"),
+                                dataArr[dataArr.findIndex(y => y.id == e.target.id)].status = 'checked',
+                                completed++) :
+                            (e.target.classList.remove("checked"),
+                                dataArr[dataArr.findIndex(y => y.id == e.target.id)].status = 'unchecked',
+                                completed--);
+                    } else if (e.target.tagName === "SPAN") {
+                        if (dataArr[dataArr.findIndex(y => y.id == e.target.parentNode.id)].status == 'checked') {
+                            completed--;
+                        }
+                        e.target.parentElement.remove();
+                        dataArr.splice(dataArr.findIndex(y => y.id == e.target.parentNode.id), 1);
                     }
-                    e.target.parentElement.remove();
-                    dataArr.splice(dataArr.findIndex(y => y.id == e.target.parentNode.id), 1);
-                }
-                localStorage.setItem("data", JSON.stringify(dataArr));
-                completeUpdate();
-            };
+                    localStorage.setItem("data", JSON.stringify(dataArr));
+                    completeUpdate();
+                };
+            }
+        }
+        try {
+            checkLi();
+        } catch {
+            console.log('no li elements');
         }
 
         let pomodoroButton = document.getElementById('pomodoro'),
@@ -343,21 +349,18 @@ window.onload = function() {
             async function pomodoroRound(n) {
                 let sec = rounds[0].time;
 
-                let promise = new Promise((resolve, reject) => {
+                let result = await new Promise((resolve, reject) => {
                     modalText.innerHTML = `${rounds[n].label}`;
                     timer = setInterval(() => {
                         timerMinutes.innerHTML = Math.floor(sec / 60) > 9 ? `${Math.floor(sec / 60)}` : `0${Math.floor(sec / 60)}`;
                         timerSeconds.innerHTML = sec % 60 > 9 ? `${sec % 60}` : `0${sec % 60}`;
                         sec--;
-                        console.log(sec);
                         if (sec < 0) {
-                            console.log('end');
                             resolve(n);
                             clearInterval(timer);
                         };
                     }, 1000);
                 });
-                let result = await promise;
                 if (result == result.length - 1) {
                     return result;
                 } else {
@@ -366,9 +369,6 @@ window.onload = function() {
                 }
             }
             pomodoroRound(0);
-
-
-
         }
         closeModalButton.onclick = function() {
             clearInterval(timer);
@@ -382,11 +382,19 @@ window.onload = function() {
         settingsContainer.classList.add('appeared');
         settingsLink.style.color = `var(--${localStorage.appearanceId})`;
 
-        let smoothlyAppearedElements = document.querySelectorAll('.smoothly-appearing'),
-            bottomAppearedElements = document.querySelectorAll('.bottom-appearance');
+        let appearedElements = document.querySelectorAll('.appearing'),
+            bottomAppearedElements = document.querySelectorAll('.bottom-appearance'),
+            topAppearedElements = document.querySelectorAll('.top-appearance'),
+            rotateBottomAppearedElements = document.querySelectorAll('.rotate-bottom-appearance'),
+            rotateBottomLeftAppearedElements = document.querySelectorAll('.rotate-bottom-appearance-left'),
+            rotateBottomRightAppearedElements = document.querySelectorAll('.rotate-bottom-appearance-right');
 
-        for (let element of smoothlyAppearedElements) { observer.observe(element); }
+        for (let element of appearedElements) { observer.observe(element); }
+        for (let element of topAppearedElements) { observer.observe(element); }
         for (let element of bottomAppearedElements) { observer.observe(element); }
+        for (let element of rotateBottomAppearedElements) { observer.observe(element); }
+        for (let element of rotateBottomLeftAppearedElements) { observer.observe(element); }
+        for (let element of rotateBottomRightAppearedElements) { observer.observe(element); }
 
         let selectColorButtons = document.getElementsByClassName('select-color-button');
 
@@ -403,16 +411,24 @@ window.onload = function() {
     } else if (location.pathname.includes('profile')) {
         setApprearance();
         let profileContainer = document.getElementById('profile-container');
-        profileLink = document.getElementById('profile-link');
+        profileLink = document.getElementById('profile-link'),
+            userName = document.getElementById('user-name'),
+            setNewName = document.getElementById('set'),
+            smoothlyAppearedElements = document.querySelectorAll('.appearing'),
+            bottomAppearedElements = document.querySelectorAll('.bottom-appearance');
 
         profileContainer.classList.add('appeared');
         profileLink.style.color = `var(--${localStorage.appearanceId})`;
 
-        let smoothlyAppearedElements = document.querySelectorAll('.smoothly-appearing'),
-            bottomAppearedElements = document.querySelectorAll('.bottom-appearance');
-
         for (let element of smoothlyAppearedElements) { observer.observe(element); }
         for (let element of bottomAppearedElements) { observer.observe(element); }
 
+        userName.value = `${localStorage.user}`;
+
+        setNewName.onclick = function() {
+            localStorage.setItem('user', userName.value);
+            location.reload();
+            console.log(localStorage);
+        }
     }
 }
