@@ -1,4 +1,5 @@
 window.onload = function() {
+    // настройки модального окна
     let modal = document.getElementById('modal'),
         closeModalButton = document.getElementById('close-modal-button'),
         modalTriggers = document.querySelectorAll('[data-trigger]');
@@ -26,6 +27,7 @@ window.onload = function() {
         isModalOpen = false;
     });
 
+    // добавление анимации при нахождении объекта в зоне видимости
     function onEntry(element) {
         element.forEach(change => {
             if (change.isIntersecting) {
@@ -33,10 +35,10 @@ window.onload = function() {
             }
         });
     }
-//background-color: var(--${localStorage.appearanceId});
+
+    // настройка внешнего вида
     function setApprearance() {
-        let style = document.createElement('style');
-        style.innerHTML = `
+        document.createElement('style').innerHTML = `
         body{
             background: ${localStorage.appearanceValue};
         }
@@ -79,6 +81,7 @@ window.onload = function() {
         }`;
         document.body.prepend(style);
     }
+
     let options = { threshold: [0.5] };
     let observer = new IntersectionObserver(onEntry, options);
 
@@ -86,11 +89,14 @@ window.onload = function() {
         //localStorage.clear();
         console.log(localStorage)
 
+        // настройка класса и содержимого элемента
         function changeElem(...args) { // elem, oldclass, newclass, newtext
             args[[0]].classList.remove(args[[1]]);
+
             if (args[[3]]) {
                 args[[0]].innerHTML = (args[[3]]);
             }
+
             args[[0]].classList.add(args[[2]]);
         }
 
@@ -99,10 +105,13 @@ window.onload = function() {
         let greeting = document.createElement('p');
         greeting.className = 'heading white-text smoothly-appearing';
 
+        // новый пользователь
         if (!localStorage.user || localStorage.user == undefined || !localStorage.mark || localStorage.mark != 'true') {
+            // оформление по умолчанию
             localStorage.setItem('appearanceId', 'orange');
             localStorage.setItem('appearanceValue', 'rgba(235, 135, 56, 0.08)');
             localStorage.setItem('appearanceTheme', 'black');
+
             setApprearance();
             let greetingContainer = document.getElementById('greeting-container');
 
@@ -112,21 +121,27 @@ window.onload = function() {
 
             setTimeout(function() {
                 changeElem(greeting, 'smoothly-appearing', 'disappearing');
+
                 setTimeout(function() {
                     changeElem(greeting, 'disappearing', 'appearing', `I'm Mark - your personal task manager`);
                 }, 1000)
+
                 setTimeout(function() {
                     changeElem(greeting, 'appearing', 'disappearing');
                 }, 3000)
+
                 setTimeout(function() {
                     changeElem(greeting, 'disappearing', 'appearing', `It seems like we haven't met yet`);
                 }, 4000)
+
                 setTimeout(function() {
                     changeElem(greeting, 'appearing', 'disappearing');
                 }, 6000)
+
                 setTimeout(function() {
                     changeElem(greeting, 'disappearing', 'appearing', `Let's fix that:`);
                 }, 7000)
+
                 setTimeout(function() {
                     greetingContainer.classList.add('bottom-appearance');
                     observer.observe(greetingContainer);
@@ -136,6 +151,7 @@ window.onload = function() {
             let nextButton = document.getElementById('next'),
                 userName = document.getElementById('user-name');
 
+            // установка имени
             nextButton.onclick = function() {
                 if (!userName.value) {
                     let modalHeading = document.getElementById('modal-heading'),
@@ -165,14 +181,18 @@ window.onload = function() {
                         setTimeout(function() {
                             changeElem(greeting, 'smoothly-appearing', 'disappearing');
                         }, 1000)
+
                         setTimeout(function() {
                             changeElem(greeting, 'disappearing', 'appearing', `Let's set up your planner`);
                         }, 2500)
+
                         setTimeout(function() {
                             changeElem(greeting, 'appearing', 'disappearing');
+
                             setTimeout(function() {
                                 greeting.remove();
                                 startContainer.classList.add('appeared');
+
                                 setTimeout(function() {
                                     startContainer.remove();
                                     window.location.href = './public/main.html';
@@ -182,7 +202,7 @@ window.onload = function() {
                     }, 900)
                 }
             }
-        } else {
+        } else { // существующий пользователь
             setApprearance();
             greeting.innerHTML = `Welcome back, ${localStorage.user}!`;
             startContainer.prepend(greeting);
@@ -191,14 +211,18 @@ window.onload = function() {
             setTimeout(function() {
                 changeElem(greeting, 'smoothly-appearing', 'disappearing');
             }, 1000)
+
             setTimeout(function() {
                 changeElem(greeting, 'disappearing', 'appearing', `Let's check your planner`);
             }, 2500)
+
             setTimeout(function() {
                 changeElem(greeting, 'appearing', 'disappearing');
+
                 setTimeout(function() {
                     greeting.remove();
                     startContainer.classList.add('appeared');
+
                     setTimeout(function() {
                         startContainer.remove();
                         window.location.href = './public/main.html';
@@ -206,10 +230,11 @@ window.onload = function() {
                 }, 900);
             }, 5000)
         }
-    } else if (location.pathname.includes('main')) {
+    } else if (location.pathname.includes('main')) { // страница с тасками
         setApprearance();
+
         let mainContainer = document.getElementById('main-container');
-            markLink = document.getElementById('mark-link');
+        markLink = document.getElementById('mark-link');
 
         mainContainer.classList.add('appeared');
         markLink.style.fontWeight = `bold`;
@@ -218,14 +243,23 @@ window.onload = function() {
             topAppearedElements = document.querySelectorAll('.top-appearance'),
             bottomAppearedElements = document.querySelectorAll('.bottom-appearance');
 
-        for (let element of smoothlyAppearedElements) { observer.observe(element); }
-        for (let element of topAppearedElements) { observer.observe(element); }
-        for (let element of bottomAppearedElements) { observer.observe(element); }
+        for (let element of smoothlyAppearedElements) {
+            observer.observe(element);
+        }
+
+        for (let element of topAppearedElements) {
+            observer.observe(element);
+        }
+
+        for (let element of bottomAppearedElements) {
+            observer.observe(element);
+        }
 
         let monthes = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
             weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
         let date = new Date();
 
+        // установка даты
         document.getElementById('month-name').innerHTML = `${monthes[date.getMonth()]}`;
         document.getElementById('weekday').innerHTML = `${weekdays[date.getDay()]}`;
         document.getElementById('date').innerHTML = `${date.getDate()}`;
@@ -246,6 +280,7 @@ window.onload = function() {
 
         completedPercent.innerHTML = `${completed}%`;
 
+        // отображение процента выполнения (+ обновление списка li)
         function completeUpdate() {
             completedPercent.innerHTML = dataArr.length > 0 ? `${Math.round(completed / dataArr.length * 100)}%` : '0%';
             liItems = document.getElementsByClassName('li-item');
@@ -257,31 +292,38 @@ window.onload = function() {
                 li.className = 'medium-text li-item';
                 li.id = index;
                 li.innerHTML = taskInput.value;
+
                 let span = document.createElement('span');
                 span.innerHTML = '<div></div><div></div>';
                 li.appendChild(span);
                 ul.appendChild(li);
+
                 dataArr.push({ "id": index, "task": taskInput.value, "status": 'unchecked' });
                 index++;
                 taskInput.value = '';
                 localStorage.setItem("data", JSON.stringify(dataArr));
+
                 completeUpdate();
                 checkLi();
             }
         }
 
+        // выгрузка существующих в памяти задач
         if (localStorage['data'] && localStorage['data'].length > 2) {
             dataArr = JSON.parse(localStorage.getItem('data'));
             index = dataArr[dataArr.length - 1].id + 1;
+
             for (let i = 0; i < dataArr.length; i++) {
                 let li = document.createElement('li');
                 li.className = 'medium-text li-item';
                 li.id = dataArr[i].id;
                 li.innerHTML = dataArr[i].task;
+
                 if (dataArr[i].status == 'checked') {
                     li.classList.toggle("checked");
                     completed++;
                 }
+
                 let span = document.createElement('span');
                 span.innerHTML = '<div></div><div></div>';
                 li.appendChild(span);
@@ -291,16 +333,20 @@ window.onload = function() {
             checkLi();
         }
 
+        // обработка добавления задачи
         addButton.onclick = addItem;
+
         document.onkeydown = function(e) {
             if (e.which == 13) {
                 addItem();
             }
         }
 
+        // проверка состояния задач
         function checkLi() {
             for (let i = 0; i < liItems.length; i++) {
                 liItems[i].onclick = function(e) {
+
                     if (e.target.tagName === "LI") {
                         dataArr[dataArr.findIndex(y => y.id == e.target.id)].status == 'unchecked' ?
                             (e.target.classList.toggle("checked"),
@@ -316,30 +362,34 @@ window.onload = function() {
                         e.target.parentElement.remove();
                         dataArr.splice(dataArr.findIndex(y => y.id == e.target.parentNode.id), 1);
                     }
+
                     localStorage.setItem("data", JSON.stringify(dataArr));
                     completeUpdate();
                 };
             }
         }
+        // вызов проверки при существовании задач
         try {
             checkLi();
         } catch {
             console.log('no li elements');
         }
 
+        // настрйока pomodoro таймера
         let pomodoroButton = document.getElementById('pomodoro'),
             startTimerButton = document.getElementById('start');
 
-        let rounds = [{ time: 1499, label: 'First working round' },
-            { time: 299, label: 'Rest' },
-            { time: 1499, label: 'Second working round' },
-            { time: 299, label: 'Rest' },
-            { time: 1499, label: 'Third working round' },
-            { time: 299, label: 'Rest' },
-            { time: 1499, label: 'Fourth working round' },
-            { time: 299, label: 'Time for good rest' }
-        ];
-        let timer;
+        let timer,
+            rounds = [{ time: 1499, label: 'First working round' },
+                { time: 299, label: 'Rest' },
+                { time: 1499, label: 'Second working round' },
+                { time: 299, label: 'Rest' },
+                { time: 1499, label: 'Third working round' },
+                { time: 299, label: 'Rest' },
+                { time: 1499, label: 'Fourth working round' },
+                { time: 299, label: 'Time for good rest' }
+            ];
+
         let timerMinutes = document.getElementById('timer-minutes'),
             timerSeconds = document.getElementById('timer-seconds'),
             modalText = document.getElementById('modal-text');
@@ -379,10 +429,11 @@ window.onload = function() {
             clearInterval(timer);
         }
 
-    } else if (location.pathname.includes('settings')) {
+    } else if (location.pathname.includes('settings')) { // страница настройки
         setApprearance();
-        let settingsContainer = document.getElementById('settings-container');
-        settingsLink = document.getElementById('settings-link');
+
+        let settingsContainer = document.getElementById('settings-container'),
+            settingsLink = document.getElementById('settings-link');
 
         settingsContainer.classList.add('appeared');
         settingsLink.style.fontWeight = `bold`;
@@ -394,29 +445,48 @@ window.onload = function() {
             rotateBottomLeftAppearedElements = document.querySelectorAll('.rotate-bottom-appearance-left'),
             rotateBottomRightAppearedElements = document.querySelectorAll('.rotate-bottom-appearance-right');
 
-        for (let element of appearedElements) { observer.observe(element); }
-        for (let element of topAppearedElements) { observer.observe(element); }
-        for (let element of bottomAppearedElements) { observer.observe(element); }
-        for (let element of rotateBottomAppearedElements) { observer.observe(element); }
-        for (let element of rotateBottomLeftAppearedElements) { observer.observe(element); }
-        for (let element of rotateBottomRightAppearedElements) { observer.observe(element); }
+        for (let element of appearedElements) {
+            observer.observe(element);
+        }
+
+        for (let element of topAppearedElements) {
+            observer.observe(element);
+        }
+
+        for (let element of bottomAppearedElements) {
+            observer.observe(element);
+        }
+
+        for (let element of rotateBottomAppearedElements) {
+            observer.observe(element);
+        }
+
+        for (let element of rotateBottomLeftAppearedElements) {
+            observer.observe(element);
+        }
+
+        for (let element of rotateBottomRightAppearedElements) {
+            observer.observe(element);
+        }
 
         let selectColorButtons = document.getElementsByClassName('select-color-button');
-        
+
         for (var i = 0; i < selectColorButtons.length; i++) {
             selectColorButtons[i].addEventListener("click", function(e) {
                 let idParts = e.target.id.split(',');
+
                 localStorage.setItem('appearanceId', idParts[0]);
                 localStorage.setItem('appearanceValue', e.target.value);
                 localStorage.setItem('appearanceTheme', idParts[1]);
+
                 setApprearance();
                 location.reload()
             });
         }
-    } else if (location.pathname.includes('profile')) {
+    } else if (location.pathname.includes('profile')) { // страница профиля
         setApprearance();
-        let profileContainer = document.getElementById('profile-container');
-        profileLink = document.getElementById('profile-link'),
+        let profileContainer = document.getElementById('profile-container'),
+            profileLink = document.getElementById('profile-link'),
             userName = document.getElementById('user-name'),
             setNewName = document.getElementById('set'),
             smoothlyAppearedElements = document.querySelectorAll('.appearing'),
@@ -425,8 +495,12 @@ window.onload = function() {
         profileContainer.classList.add('appeared');
         profileLink.style.fontWeight = `bold`;
 
-        for (let element of smoothlyAppearedElements) { observer.observe(element); }
-        for (let element of bottomAppearedElements) { observer.observe(element); }
+        for (let element of smoothlyAppearedElements) {
+            observer.observe(element);
+        }
+        for (let element of bottomAppearedElements) {
+            observer.observe(element);
+        }
 
         userName.value = `${localStorage.user}`;
 
