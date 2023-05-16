@@ -38,7 +38,8 @@ window.onload = function() {
 
     // настройка внешнего вида
     function setApprearance() {
-        let style = document.createElement('style').innerHTML = `
+        let style = document.createElement('style');
+        style.innerHTML = `
         body{
             background: ${localStorage.appearanceValue};
         }
